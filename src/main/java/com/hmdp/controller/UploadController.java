@@ -1,10 +1,16 @@
 package com.hmdp.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.hmdp.dto.Result;
+import com.hmdp.dto.UserDTO;
+import com.hmdp.entity.User;
+import com.hmdp.service.IUserService;
 import com.hmdp.utils.SystemConstants;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +23,8 @@ import java.util.UUID;
 @RequestMapping("/upload")
 public class UploadController {
 
+    @Autowired
+    private IUserService userService;
     @PostMapping("/blog")
     public Result uploadImage(@RequestParam("file") MultipartFile image) {
         try {
@@ -60,4 +68,6 @@ public class UploadController {
         // 生成文件名
         return StrUtil.format("/blogs/{}/{}/{}.{}", d1, d2, name, suffix);
     }
+
+
 }
